@@ -24,12 +24,12 @@ def get_movies(title, rating=None, year=None):
 
     return data.get("Search", [])
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def search_movies(title, rating=None, year=None):
     movies = get_movies(title, rating, year)
     return movies
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True)
 def default_movies():
     # Provide defualt loading of movies for the first tim
     default_titles = ["The Matrix", "Inception", "Interstellar"]
