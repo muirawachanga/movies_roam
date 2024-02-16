@@ -6,7 +6,6 @@
     padding: 20px;
 }
 
-
 button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -21,6 +20,8 @@ button:hover {
 
 .row {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .col {
@@ -51,4 +52,18 @@ button:hover {
 
 .card-text {
     margin-bottom: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .col {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 576px) {
+    .col {
+        width: 100%;
+        margin-right: 0;
+    }
 }

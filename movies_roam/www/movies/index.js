@@ -37,7 +37,6 @@ frappe.ready(async() => {
                 resultsDiv.appendChild(row);
             }
             var movieDiv = document.createElement('div');
-            console.log("movies", movie)
             movieDiv.className = 'col';
             movieDiv.innerHTML = '<div class="card">' +
                                  '<img class="card-img-top" src="' + movie.Poster + '" alt="' + movie.Title + '">' +
