@@ -21,7 +21,7 @@ def get_movies(title, rating=None, year=None):
     if "Error" in data:
         frappe.msgprint(_("Error: {0}").format(data["Error"]))
         return []
-
+    
     return data.get("Search", [])
 
 @frappe.whitelist(allow_guest=True)

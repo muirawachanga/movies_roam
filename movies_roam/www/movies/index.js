@@ -15,37 +15,50 @@ frappe.ready(async() => {
 
     async function searchMovies() {
         var title = document.getElementById('movie_title').value;
-        await frappe.call({
+        try {
+            response =await frappe.call({
             method: 'movies_roam.www.movies.index.search_movies',
             args: {
                 title: title,
-            },
-            callback: function(r) {
-                renderResults(r.message);
             }
         });
+        if (response.message.error) {
+            throw new Error(`API error: ${response.message.error}`); 
+          } else {
+            renderResults(response.message);
+          }
+        } catch (error) {
+          console.error("Error searching movies:", error);
+          renderResults([]); // Render empty results to indicate an error
+        }
     }
 
     function renderResults(movies) {
         var resultsDiv = document.getElementById('results');
         resultsDiv.innerHTML = '';
-        var row;
-        movies.forEach((movie, index) => {
+      
+        try {
+          var row;
+          movies.forEach((movie, index) => {
             if (index % 3 === 0) {
-                row = document.createElement('div');
-                row.className = 'row';
-                resultsDiv.appendChild(row);
+              row = document.createElement('div');
+              row.className = 'row';
+              resultsDiv.appendChild(row);
             }
             var movieDiv = document.createElement('div');
             movieDiv.className = 'col';
             movieDiv.innerHTML = '<div class="card">' +
-                                 '<img class="card-img-top" src="' + movie.Poster + '" alt="' + movie.Title + '">' +
-                                 '<div class="card-body">' +
-                                 '<h5 class="card-title">' + movie.Title + '</h5>' +
-                                 '<p class="card-text">Year: ' + movie.Year + '</p>' +
-                                 '<p class="card-text">Type: ' + movie.Type + '</p>' +
-                                 '</div>' +
-                                 '</div>';
+                                '<img class="card-img-top" src="' + movie.Poster + '" alt="' + movie.Title + '">' +
+                                '<div class="card-body">' +
+                                '<h5 class="card-title">' + movie.Title + '</h5>' +
+                                '<p class="card-text">Year: ' + movie.Year + '</p>' +
+                                '<p class="card-text">Type: ' + movie.Type + '</p>' +
+                                '</div>' +
+                                '</div>';
             row.appendChild(movieDiv);
-        });
-    }
+          });
+        } catch (error) {
+          console.error("Error rendering results:", error);
+          resultsDiv.innerHTML = "<p>An error occurred while displaying movies. Please try again later.</p>";
+        }
+      }
