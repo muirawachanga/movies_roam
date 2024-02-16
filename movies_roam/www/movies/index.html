@@ -1,0 +1,30 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("Movie search") }}{% endblock %}
+
+{% block script %}
+<script src="movies/index.js"></script>
+{% endblock %}
+
+{% block page_content %}
+<!--Enter Details-->
+<div id="enter-details" class="mb-5">
+    <div class="text-center mt-5">
+        <h3>Movie search</h3>
+        <p class="lead text-muted">Please insert your title and click search.</p>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-4 align-items-center">
+            <form id="customer-form" action='#'>
+            <input class="form-control mt-3" type="text" name="movie_title" id="movie_title" placeholder="title" required>
+            </form>
+            <div class="row mt-3 " id="submit-button-area">
+                <div class="col-md mt-3"><button class="btn btn-primary form-control " onclick="searchMovies()" id="submit-button">Search</button></div>
+            </div>
+        </div>
+    </div>
+    <div id="results" class="row"></div>
+</div>
+</div>
+
+{% endblock %}
