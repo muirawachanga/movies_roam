@@ -5,7 +5,7 @@ from frappe import _
 def get_movies(title, rating=None, year=None):
     url = "http://www.omdbapi.com/"
     params = {
-        "apikey": "",
+        "apikey": frappe.conf.get("omd_api"),
         "s": title
     }
 
